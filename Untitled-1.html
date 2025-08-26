@@ -1,0 +1,117 @@
+<!--
+chonkey
+-->
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Me — Surprise!</title>
+  <style>
+    :root{--bg:#8ecae6;--accent:#023047}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto}
+    body{background:var(--bg);color:#fff;}
+
+    /* Landing page */
+    .landing{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:20px}
+    .landing h1{font-size:32px;margin:0;color:#fff}
+    .landing button{background:var(--accent);border:none;padding:14px 28px;border-radius:16px;font-size:18px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.4);transition:transform 0.2s}
+    .landing button:hover{transform:scale(1.05)}
+
+    /* Main surprise page (hidden at first) */
+    .hidden{display:none}
+    .wrap{width:100%;max-width:980px;margin:20px auto;background:rgba(255,255,255,0.1);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.3);overflow:hidden;display:grid;grid-template-columns:420px 1fr}
+    @media (max-width:820px){.wrap{grid-template-columns:1fr;gap:0}}
+
+    .photo-side{position:relative;padding:28px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);}
+    .photo-frame{width:100%;max-width:360px;border-radius:14px;padding:6px;background:linear-gradient(90deg, rgba(2,48,71,0.2), rgba(14,87,103,0.15));box-shadow:0 6px 30px rgba(0,0,0,0.3)}
+    .photo-frame img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;display:block;}
+    .glow{position:absolute;inset:auto 18px 18px auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 40%);pointer-events:none}
+
+    .content{padding:36px 32px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+    h1{font-size:28px;margin:0;line-height:1.05;color:#023047}
+    .subtitle{color:#023047;font-size:14px}
+    .typewriter{font-weight:600;font-size:18px;margin-top:6px;min-height:54px;color:#023047}
+
+    .message{margin-top:8px;color:#fff;background:rgba(2,48,71,0.2);padding:16px;border-radius:12px;width:100%;font-size:15px}
+    footer{margin-top:auto;color:#023047;font-size:13px}
+
+    .heart{width:64px;height:64px;border-radius:16px;display:inline-grid;place-items:center;background:#ff6b81;cursor:pointer}
+    .heart svg{width:28px;height:28px}
+
+    #confettiCanvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:999}
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Landing Page -->
+  <div class="landing" id="landing">
+    <h1>💌 Hi, there is something for chonkey!</h1>
+    <button id="openBtn">Open Me</button>
+  </div>
+
+  <!-- Main Surprise -->
+  <div class="hidden" id="mainPage">
+    <div class="wrap" role="main">
+      <div class="photo-side">
+        <div class="photo-frame">
+          <img src="https://github.com/defanishafamaharani/akeyla/raw/6c8090ef1117bb22017acf8d8863e1c8b450a462/photo.png" alt="Deskripsi gambar">
+        </div>
+        <div class="glow"></div>
+      </div>
+      <div class="content">
+        <h1>Semangat 1st Day S2-nya, Akeyla!! 🎓</h1>
+        <div class="subtitle">for my beloved boyfriend, partner in crime, my love of my life, my everything.</div>
+        <div class="typewriter" id="typewriter"></div>
+        <div class="heart" id="heartBtn" title="Klik buat confetti">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7f1d1d" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 8.6c0 6-8 10.6-8 10.6s-8-4.6-8-10.6a4.2 4.2 0 0 1 7.8-2.6A4.2 4.2 0 0 1 20.8 8.6z" fill="#ff6b81"></path>
+          </svg>
+        </div>
+        <div class="message" id="messageBox">
+          I’m beyond proud of how far you’ve come, and seeing you reach this point makes me so happy. From the very beginning, I’ve always trusted every step you’ve taken, because I know how strong, determined, and capable you are. No matter how big the challenge, you always find a way to keep moving forward, and that inspires me every single day. I want you to know that I’ll always be by your side, sharing every moment of your journey. My love, as you take this next step into your Master’s degree, please remember that you are never alone. I’ll be here cheering for you, supporting you, and praying that everything you do will be smooth and full of blessings. Keep going with courage and excitement, sayangku. This is only the beginning of an even brighter path ahead, and I can’t wait to see you shine even more. ❤️        </div>
+        <footer>from your baby, Defani Shafa Maharani.</footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('openBtn').addEventListener('click',()=>{
+      document.getElementById('landing').style.display='none';
+      document.getElementById('mainPage').classList.remove('hidden');
+      triggerConfetti(160);
+    });
+
+    const lines=[
+      'CHONKEYY SEMANGAT FAST TRACKNYA, YAA!!!!',
+      'SAYANGKU AKU SANGAT BANGGA SAMA KAMU, SEMANGAT HARI PERTAMANYA YAA!!!!',
+      'SEMOGA S2-NYA LANCAR YA, SAYANGKU. TERUS NIKAH SAMA AKU DEH ^-^',
+      'I LOVE YOU, ABYAN RAQY AKEYLA.'
+    ];
+    const tw=document.getElementById('typewriter');
+    let li=0,ci=0,forward=true;
+    function typeStep(){
+      const txt=lines[li];
+      if(forward){ci++;tw.textContent=txt.slice(0,ci);if(ci===txt.length){forward=false;setTimeout(typeStep,1200);return}}
+      else{ci--;tw.textContent=txt.slice(0,ci);if(ci===0){forward=true;li=(li+1)%lines.length}}
+      setTimeout(typeStep, forward?40:18);
+    }
+    typeStep();
+
+    document.getElementById('heartBtn').addEventListener('click',()=>{triggerConfetti(220)});
+
+    const confettiCanvas=document.getElementById('confettiCanvas');
+    const ctx=confettiCanvas.getContext('2d');
+    let W=confettiCanvas.width=innerWidth,H=confettiCanvas.height=innerHeight;
+    window.addEventListener('resize',()=>{W=confettiCanvas.width=innerWidth;H=confettiCanvas.height=innerHeight});
+
+    class Piece{constructor(){this.x=Math.random()*W;this.y=-10;this.size=6+Math.random()*10;this.color=`hsl(${Math.floor(Math.random()*360)},85%,60%)`;this.tilt=Math.random()*Math.PI;this.velY=2+Math.random()*4;this.velX=-2+Math.random()*4;this.spin=-0.05+Math.random()*0.1}update(){this.x+=this.velX;this.y+=this.velY;this.tilt+=this.spin}draw(){ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.tilt);ctx.fillStyle=this.color;ctx.fillRect(-this.size/2,-this.size/2,this.size,this.size);ctx.restore()}}
+
+    let pieces=[],confettiTimer=null;
+    function triggerConfetti(amount=100){for(let i=0;i<amount;i++)pieces.push(new Piece());if(confettiTimer===null)runConfetti()}
+    function runConfetti(){confettiTimer=requestAnimationFrame(runConfetti);ctx.clearRect(0,0,W,H);for(let i=pieces.length-1;i>=0;i--){const p=pieces[i];p.update();p.draw();if(p.y>H+50||p.x<-50||p.x>W+50)pieces.splice(i,1)}if(pieces.length===0){cancelAnimationFrame(confettiTimer);confettiTimer=null}}
+  </script>
+</body>
+</html>
